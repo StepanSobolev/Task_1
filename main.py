@@ -1,28 +1,16 @@
 import sqlite3
+from shell import name, surname, number, subdivision
 
 db = sqlite3.connect('base.db')
 cur = db.cursor()
 
-# cur.execute("""CREATE TABLE IF NOT EXISTS weapoons_ak(
-#         name text,
-#         surname text,
-#         number text PRIMARY KEY,
-#         subdivision text
-#         )""")
-#
-# cur.execute("""CREATE TABLE IF NOT EXISTS weapoons_pm(
-#         name text,
-#         surname text,
-#         number text PRIMARY KEY,
-#         subdivision text
-#         )""")
 
 
-def new_member(table):
-    name = input('Введите имя: ')
-    surname = input('Введите фамилию: ')
-    number = input('Введите номер: ').strip()
-    subdivision = input('Введите подрзделение: ')
+def new_member(table, name, surname, number, subdivision):
+    name = name.get()
+    surname = surname.get()
+    number = number.get()
+    subdivision = subdivision.get()
     cur.execute(f"""INSERT INTO {table} VALUES (?, ?, ?, ?)""", (name, surname, number, subdivision))
     db.commit()
     print('Данние успешно внесен')
@@ -45,7 +33,8 @@ def user_choice():
         user_choice()
     return choice
 
-user_choice()
+# user_choice()
 
 
-
+if __name__ == '__main__':
+    pass
