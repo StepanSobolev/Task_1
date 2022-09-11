@@ -1,8 +1,5 @@
 from tkinter import *
 import sqlite3
-import tkinter as tk
-
-# from main import new_member
 
 
 db = sqlite3.connect('base.db')
@@ -13,38 +10,35 @@ root.geometry('600x300')
 Label(root, text='Програма обліку зброї').grid(row=0, column=0, columnspan=4, sticky='we')
 
 
-def register_pool():
-    Label(root, text='Ім\'я').grid(row=2, column=0)
-    name = Entry(root)
-    name.grid(row=2, column=1)
-
-    Label(root, text='Прізвище').grid(row=3, column=0)
-    surname = Entry(root)
-    surname.grid(row=3, column=1)
-
-    Label(root, text='Номер').grid(row=4, column=0)
-    number = Entry(root)
-    number.grid(row=4, column=1)
-
-    Label(root, text='Підрозділ').grid(row=5, column=0)
-    subdivision = Entry(root)
-    subdivision.grid(row=5, column=1)
-    main_ok()
+def lable_enrty(changes, row, column):
+    Label(root, text=f'{changes}').grid(row=row, column=column)
+    chang = Entry(root)
+    chang.grid(row=row, column=column + 1)
+    return chang
 
 
-def main_ok():
-    Button(root, text='OK', command=ak).grid(row=6, column=1)
+def main_ok(choice, name, surname, number, subdivision):
+    Button(root, text='OK',
+           command=lambda choice=choice, name=name, surname=surname, number=number, subdivision=subdivision:
+           new_member(choice, name, surname, number, subdivision)).grid(row=6, column=1)
 
 
 def ak():
     choice = 'weapoons_ak'
-    register_pool()
-    # new_member(choice, name, surname, number, subdivision)
+    name = lable_enrty('Ім\'я', 2, 0)
+    surname = lable_enrty('Прізвище', 3, 0)
+    number = lable_enrty('Номер АК', 4, 0)
+    subdivision = lable_enrty('Підрозділ', 5, 0)
+    main_ok(choice, name, surname, number, subdivision)
 
 
 def pm():
     choice = 'weapoons_pm'
-    # new_member(choice, name, surname, number, subdivision)
+    name = lable_enrty('Ім\'я', 2, 0)
+    surname = lable_enrty('Прізвище', 3, 0)
+    number = lable_enrty('Номер ПМ', 4, 0)
+    subdivision = lable_enrty('Підрозділ', 5, 0)
+    main_ok(choice, name, surname, number, subdivision)
 
 
 def new_member(table, name, surname, number, subdivision):
